@@ -38,7 +38,6 @@ request.interceptors.request.use((config) => {
 
 // 响应拦截器。拦截服务器发回的响应并进行处理
 request.interceptors.response.use(response=> {
-  console.log(response)
   let res = response.data;
   // 如果是返回的文件
   if (response.config.responseType === 'blob') {
