@@ -38,7 +38,7 @@
                     </el-form-item>
                 </el-form>
                 <el-row>
-                  <el-button type="primary" round @click="login()">登录</el-button>
+                  <el-button type="primary" round @click="login">登录</el-button>
                 </el-row>
               </div>
 
@@ -96,13 +96,17 @@
               </div>
               <el-row style="margin-top: 5px">
                 <el-col :span="6" :offset="18">
+
+                  <br>
                   <el-link style="color: black;font-size: 15px" @click="changeForm()">
                     <span v-show="isLogin">创建账号</span>
                     <span v-show="!isLogin">返回登录</span>
                   </el-link>
                 </el-col>
               </el-row>
-
+              <div style="width: 100%;text-align: center">
+                <span v-show="showError" style="color: red" >{{errorMessage}}</span>
+              </div>
 
             </div>
 
@@ -113,12 +117,13 @@
 <script>
 import {deepCopy} from "../commom/utils";
 import {LOGIN_INFO, REGISTER_INFO} from "../commom/constant";
-import {register} from "../apis/user";
+import {login, register} from "../apis/user";
 
 export default {
   name: "Entry",
   data(){
-    var validatePass = (rule, value, callback) => {
+    /** 对用户输入的密码进行验证 */
+    const validatePassword = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
       }else if(value.length<8 || value.length >20){
@@ -130,7 +135,8 @@ export default {
         callback();
       }
     };
-    var validatePass2 = (rule, value, callback) => {
+    /** 对用户重复输入的密码进行验证 */
+    const validateRepeatPassword = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'));
       } else if (value !== this.registerInfo.password) {
@@ -142,6 +148,8 @@ export default {
     return{
       isLogin:true,
       isValid: false,
+      showError: false,
+      errorMessage:"",
       note: {
         backgroundImage: "url(" + require("../../img/taylor.jpg") + ")",
         backgroundRepeat: "no-repeat",
@@ -158,8 +166,8 @@ export default {
           {required: true, message: '请填写用户名', trigger: 'blur'},
           {min:1, max:20, message: '用户名字符在1-20之间', trigger: 'blur'}
         ],
-        password:[{validator:validatePass, trigger:'blur'}],
-        repeatPassword: [{validator:validatePass2, trigger:'blur'}],
+        password:[{validator:validatePassword, trigger:'blur'}],
+        repeatPassword: [{validator:validateRepeatPassword, trigger:'blur'}],
         // email:[
         //   {required:true, message:'请输入邮箱', trigger:'blur'},
         //   {type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
@@ -169,17 +177,44 @@ export default {
   },
   methods:{
       // 登陆
-      login(){
+      async login(){
         this.isvalid = false
         this.checkValid('loginForm')
+        if(!this.isvalid){
+          return
+        }
+        let res = await login(this.loginInfo)
+        if(res.code !==200){
+          this.showErrorMessage(res.message)
+          return
+        }
+        this.$message({
+          showClose: true,
+          message:"登录成功",
+          type:'success'
+        })
+        window.sessionStorage.setItem("userId",this.loginInfo.name)
+        //todo: 路由跳转
       },
       // 注册
       async register(){
         this.isvalid = false
         this.checkValid('registerForm')
-        if(this.isvalid){
-           await register(this.registerInfo)
+        if(!this.isvalid){
+          return
         }
+        let res = await register(this.registerInfo)
+        if(res.code!==200){
+          this.showErrorMessage(res.message)
+          return
+        }
+        this.$message({
+          showClose:true,
+          message:"注册成功",
+          type:'success'
+        })
+        window.sessionStorage.setItem("userId",this.registerInfo.name)
+        //todo:路由跳转
       },
 
 
@@ -193,6 +228,15 @@ export default {
         this.isLogin = !this.isLogin
       },
 
+      /** 展示报错信息 */
+      showErrorMessage(message){
+        this.errorMessage = message
+        this.showError = true
+        window.setTimeout(()=>{
+          this.errorMessage = ""
+          this.showError = false
+        },2000)
+      },
 
       checkValid(form){
         this.$refs[form].validate((valid) => {

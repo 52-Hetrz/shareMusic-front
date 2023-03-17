@@ -1,11 +1,14 @@
 import request from "../request";
 
-export const testUser = async()=>{
-  return await request.get("/user/getInfo/1")
+const preUrl = "/user"
+
+/** 用户注册api */
+export const register = async(model)=>{
+  const {data:res} = await request.post(preUrl+"/register",model)
+  return res;
 }
 
-export const register = async(model)=>{
-  const {data:res} = await request.post("/user/register",model)
-  console.log(res)
+export const login = async(model)=>{
+  const {data:res} = await request.post(preUrl+"/login",model)
   return res;
 }

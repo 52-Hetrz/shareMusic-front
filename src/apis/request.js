@@ -16,6 +16,8 @@ const whiteUrls=["/admin/login","/admin/register"]
 
 // 请求拦截器。拦截客户端发出的请求，并进行处理
 request.interceptors.request.use((config) => {
+  let userId = sessionStorage.getItem("userId")
+  config.headers['Authorization'] = userId
   // config.headers['Content-Type'] = 'application/json;charset=utf-8';
   //
   // //取出sessionStorage里面缓存的用户信息
