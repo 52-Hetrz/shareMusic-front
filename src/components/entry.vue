@@ -194,6 +194,8 @@ export default {
           type:'success'
         })
         window.sessionStorage.setItem("userId",this.loginInfo.name)
+        console.log(this.$router)
+        this.$router.push("/main")
         //todo: 路由跳转
       },
       // 注册
@@ -214,6 +216,7 @@ export default {
           type:'success'
         })
         window.sessionStorage.setItem("userId",this.registerInfo.name)
+        this.$router.push("/main")
         //todo:路由跳转
       },
 
