@@ -14,7 +14,20 @@ export default new Router({
     {
       path: '/main',
       name: 'Main',
-      component: () => import("@/components/Main")
+      component: () => import("@/components/Main"),
+      redirect: '/music',
+      children:[
+        {
+          path: '/music',
+          name: 'Music',
+          component: ()=>import("@/components/subComponents/Music"),
+        },
+        {
+          path: '/movie',
+          name: 'Movie',
+          component: ()=> import("@/components/subComponents/Movie")
+        }
+      ]
     }
   ]
 })
