@@ -1,16 +1,21 @@
 <template>
   <el-container style="height: 100%">
-    <el-header style="height: 5%">
-      <HeaderCom></HeaderCom>
-    </el-header>
+    <el-container>
+      <el-header style="height: 8%;padding: 0 0 0 0">
+        <HeaderCom :isShowAside="isShowAside" :changeAside="clickAside"></HeaderCom>
+      </el-header>
+    </el-container>
 
-    <el-container style="height: 90%">
+
+    <el-container style="height: 87%">
       <el-main style="height: 100%;background-color: black" >
         <router-view/>
       </el-main>
-      <el-aside style="height: 100%;width: 10%; background-color: aquamarine" >
-        <AsideCom></AsideCom>
-      </el-aside>
+      <AsideCom
+        :isShowAside="isShowAside"
+      >
+
+      </AsideCom>
     </el-container>
 
     <el-footer style="height: 5%">
@@ -29,13 +34,22 @@ import {LIFE_COOKIE, LIFE_SESSION_USER_ID} from "../commom/constant";
 export default {
   name: "Main",
   mounted() {
-    console.log("cookie:"+getCookie(LIFE_COOKIE))
-    console.log('session:'+sessionStorage.getItem(LIFE_SESSION_USER_ID))
   },
   components:{
     HeaderCom,
     AsideCom,
     FooterCom
+  },
+  data(){
+    return{
+      isShowAside:false,
+    }
+  },
+  methods:{
+    clickAside(){
+      this.isShowAside = !this.isShowAside
+      console.log(this.isShowAside)
+    }
   }
 }
 </script>
