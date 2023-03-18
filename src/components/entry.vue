@@ -144,7 +144,13 @@ export default {
       } else {
         callback();
       }
-    };
+    }
+    const validateUserName = (rule, value, callback)=>{
+      console.log(11)
+      if(!(/^[0-9a-zA-Z_]*$/.test(value))){
+        callback(new Error("用户名仅可以包括数字、字母以及下划线"))
+      }
+    }
     return{
       isLogin:true,
       isValid: false,
@@ -164,7 +170,8 @@ export default {
       registerRules:{
         name: [
           {required: true, message: '请填写用户名', trigger: 'blur'},
-          {min:1, max:20, message: '用户名字符在1-20之间', trigger: 'blur'}
+          {min:1, max:20, message: '用户名字符在1-20之间', trigger: 'blur'},
+          {validator:validateUserName, trigger: 'blur'}
         ],
         password:[{validator:validatePassword, trigger:'blur'}],
         repeatPassword: [{validator:validateRepeatPassword, trigger:'blur'}],
