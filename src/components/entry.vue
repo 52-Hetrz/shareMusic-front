@@ -1,13 +1,15 @@
 <template>
-    <div class="container" :style="note" style="height: 100%;padding-top: 10%">
-        <div style="margin: -4px 37% 0 37%;">
+    <div class="container" :style="note" style="height: 100%;padding-top: 9%">
+        <div style="margin: -4px 36% 0 36%;">
             <span
               style="font-size: 120px;font-weight: bold;font-family: Arial,serif"
             >
               Life
             </span>
             <div style="padding: 13px;  box-shadow: 2px 2px 4px 2px rgba(94, 94, 94, 0.9);">
-              <div v-show="isLogin">
+              <div
+                id="login"
+                v-show="isLogin">
                 <el-form
                   id="login-form"
                   ref="loginForm"
@@ -42,7 +44,9 @@
                 </el-row>
               </div>
 
-              <div v-show="!isLogin">
+              <div
+                id="register"
+                v-show="!isLogin">
                 <el-form
                   id="register-form"
                   ref="registerForm"
@@ -96,8 +100,6 @@
               </div>
               <el-row style="margin-top: 5px">
                 <el-col :span="6" :offset="18">
-
-                  <br>
                   <el-link style="color: black;font-size: 15px" @click="changeForm()">
                     <span v-show="isLogin">创建账号</span>
                     <span v-show="!isLogin">返回登录</span>
@@ -115,40 +117,44 @@
 </template>
 
 <script>
-import {deepCopy} from "../commom/utils";
-import {LOGIN_INFO, REGISTER_INFO} from "../commom/constant";
-import {login, register} from "../apis/user";
+import {deepCopy, deleteCookie, getCookie, setCookie} from "../commom/utils";
+import {LIFE_COOKIE, LIFE_SESSION_USER_ID, LOGIN_INFO, REGISTER_INFO} from "../commom/constant";
+import {checkCookie, login, register} from "../apis/user";
 
 export default {
   name: "Entry",
+  async mounted() {
+    await this.checkCookieExist()
+  },
   data(){
     /** 对用户输入的密码进行验证 */
     const validatePassword = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入密码'));
+        callback(new Error('请输入密码'))
       }else if(value.length<8 || value.length >20){
         callback(new Error('密码长度应该为8-20字符之间'))
       } else {
         if (this.registerInfo.repeatPassword !== '') {
-          this.$refs.registerForm.validateField('repeatPassword');
+          this.$refs.registerForm.validateField('repeatPassword')
         }
-        callback();
+        callback()
       }
-    };
+    }
     /** 对用户重复输入的密码进行验证 */
     const validateRepeatPassword = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请再次输入密码'));
+        callback(new Error('请再次输入密码'))
       } else if (value !== this.registerInfo.password) {
-        callback(new Error('两次输入密码不一致!'));
+        callback(new Error('两次输入密码不一致!'))
       } else {
-        callback();
+        callback()
       }
     }
     const validateUserName = (rule, value, callback)=>{
-      console.log(11)
-      if(!(/^[0-9a-zA-Z_]*$/.test(value))){
+      if(!(/^[0-9a-zA-Z_｜\u4e00-\u9fa5]*$/.test(value))){
         callback(new Error("用户名仅可以包括数字、字母以及下划线"))
+      }else{
+        callback()
       }
     }
     return{
@@ -157,7 +163,7 @@ export default {
       showError: false,
       errorMessage:"",
       note: {
-        backgroundImage: "url(" + require("../../img/taylor.jpg") + ")",
+        backgroundImage: "url(" + require("../../static/images/taylor.jpg") + ")",
         backgroundRepeat: "no-repeat",
         backgroundSize: "100% 100%",
       },
@@ -200,10 +206,10 @@ export default {
           message:"登录成功",
           type:'success'
         })
-        window.sessionStorage.setItem("userId",this.loginInfo.name)
-        console.log(this.$router)
-        this.$router.push("/main")
-        //todo: 路由跳转
+        deleteCookie(LIFE_COOKIE)
+        setCookie(LIFE_COOKIE,res.data,1)
+        window.sessionStorage.setItem(LIFE_SESSION_USER_ID,this.loginInfo.name)
+        await this.$router.push("/main")
       },
       // 注册
       async register(){
@@ -222,10 +228,24 @@ export default {
           message:"注册成功",
           type:'success'
         })
-        window.sessionStorage.setItem("userId",this.registerInfo.name)
-        this.$router.push("/main")
-        //todo:路由跳转
+        deleteCookie(LIFE_COOKIE)
+        setCookie(LIFE_COOKIE, res.data,1)
+        window.sessionStorage.setItem(LIFE_SESSION_USER_ID,this.registerInfo.name)
+        await this.$router.push("/main")
       },
+
+      async checkCookieExist(){
+        let cookie = getCookie(LIFE_COOKIE)
+        if(cookie === ''){
+          return false
+        }
+        let res = await checkCookie(cookie)
+        if(res.code === 200){
+          window.sessionStorage.setItem(LIFE_SESSION_USER_ID, res.data)
+          await this.$router.push("/main")
+        }
+      },
+
 
 
       // 改变form的类型

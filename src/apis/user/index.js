@@ -8,7 +8,13 @@ export const register = async(model)=>{
   return res;
 }
 
+/** 用户登录 */
 export const login = async(model)=>{
   const {data:res} = await request.post(preUrl+"/login",model)
   return res;
+}
+
+export const checkCookie = async(cookie)=>{
+  const {data:res} = await request.post(preUrl+"/check",cookie)
+  return res
 }
