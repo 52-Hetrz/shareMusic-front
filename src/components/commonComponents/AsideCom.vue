@@ -6,6 +6,7 @@
       background-color="rgba(240, 242, 241, 0.8)"
       text-color="black"
       style="height: 100%"
+      @select="handleClick"
     >
       <el-menu-item index="1">
         <i class="el-icon-user-solid"></i>
@@ -23,7 +24,7 @@
         <i class="el-icon-chat-dot-round"></i>
         <span slot="title">我的消息</span>
       </el-menu-item>
-      <el-menu-item index="5" style="margin-bottom: 0">
+      <el-menu-item index="-1" style="margin-bottom: 0">
         <span>退出登录</span>
       </el-menu-item>
     </el-menu>
@@ -31,11 +32,27 @@
 </template>
 
 <script>
+import {deleteCookie, getCookie, setCookie} from "../../commom/utils";
+import {LIFE_COOKIE} from "../../commom/constant";
+
 export default {
   name: "AsideCom",
   props:{
     isShowAside:Boolean
   },
+  methods:{
+    handleClick(value){
+      if(value === '-1'){
+        this.logOut()
+      }
+    },
+    logOut(){
+      // console.log('before delete:'+getCookie(LIFE_COOKIE))
+      deleteCookie(LIFE_COOKIE)
+      // console.log('after delete:'+getCookie(LIFE_COOKIE))
+      this.$router.push("/")
+    }
+  }
 }
 </script>
 

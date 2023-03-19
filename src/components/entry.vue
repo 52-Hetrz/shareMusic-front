@@ -208,6 +208,7 @@ export default {
         })
         deleteCookie(LIFE_COOKIE)
         setCookie(LIFE_COOKIE,res.data,1)
+        // console.log('after login:'+getCookie(LIFE_COOKIE))
         window.sessionStorage.setItem(LIFE_SESSION_USER_ID,this.loginInfo.name)
         await this.$router.push("/main")
       },
@@ -236,7 +237,8 @@ export default {
 
       async checkCookieExist(){
         let cookie = getCookie(LIFE_COOKIE)
-        if(cookie === ''){
+        // console.log('before login:'+cookie)
+        if(cookie === ''|| cookie === null){
           return false
         }
         let res = await checkCookie(cookie)
