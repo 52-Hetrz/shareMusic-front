@@ -1,7 +1,7 @@
 <template>
   <el-container style="height: 100%">
     <el-container>
-      <el-header style="height: 8%;padding: 0 0 0 0">
+      <el-header style="height: 4%;padding: 0 0 0 0">
         <HeaderCom :isShowAside="isShowAside" :changeAside="clickAside"></HeaderCom>
       </el-header>
     </el-container>
@@ -13,8 +13,8 @@
       </el-main>
       <AsideCom
         :isShowAside="isShowAside"
+        style="height: 100%"
       >
-
       </AsideCom>
     </el-container>
 

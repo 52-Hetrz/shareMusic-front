@@ -2,40 +2,28 @@
   <div>
     <el-row :gutter="2">
       <el-col :span="4" >
-        <div class="block">
-          <el-image
-            style="width: 250px;height: 65px"
-            :src="titleImage"
-            fit="fill"
-          >
-            <div slot="placeholder" class="image-slot">
-              加载中<span class="dot">...</span>
-            </div>
-          </el-image>
+        <div style="font-size: 13px">
+          <my-title></my-title>
         </div>
       </el-col>
 
       <el-col :span="18"
       >
         <el-menu
-          style="padding-right: 10px"
+          style="padding-right: 10px;margin-top: 4px;height: 20px"
           :default-active="activeIndex"
           active-text-color="#67C23A"
           mode="horizontal"
           @select="menuChange">
           <el-menu-item
+            style="height: 20px;font-size: 10px"
             v-for="item of this.menuItems"
             :index="item.index"
             :key="item.index"
           >
             {{item.label}}
           </el-menu-item>
-<!--          <el-menu-item-->
-<!--            index="-1"-->
-<!--            key="-1"-->
-<!--            style="float: right">-->
-<!--            用户-->
-<!--          </el-menu-item>-->
+
         </el-menu>
       </el-col>
       <el-col :span="2" style="margin-top: 6px;padding-right: -2px">
@@ -52,14 +40,16 @@
 </template>
 
 <script>
-import {getCookie} from "../../commom/utils";
-import {LIFE_COOKIE, LIFE_SESSION_USER_ID} from "../../commom/constant";
+import title from "./Title.vue";
 
 export default {
   name: "HeaderCom",
   props:{
     isShowAside:Boolean,
     changeAside:Function
+  },
+  components:{
+    myTitle:title
   },
   data(){
     return{
