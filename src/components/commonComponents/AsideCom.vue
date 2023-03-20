@@ -1,28 +1,22 @@
 <template >
   <div>
     <el-menu
+      ref="elMenu"
       :collapse="isShowAside"
       class="el-aside-menu"
       background-color="rgba(240, 242, 241, 0.8)"
       text-color="black"
+      :default-active="menuIndex.asideIndex"
       style="height: 100%"
       @select="handleClick"
     >
-      <el-menu-item index="1">
-        <i class="el-icon-user-solid"></i>
-        <span slot="title">我的信息</span>
-      </el-menu-item>
-      <el-menu-item index="2">
-        <i class="el-icon-upload2"></i>
-        <span slot="title">我的发布</span>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <i class="el-icon-star-on"></i>
-        <span slot="title">我的收藏</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-chat-dot-round"></i>
-        <span slot="title">我的消息</span>
+      <el-menu-item
+        v-for="item in this.menuItems"
+        :index=item.index
+        :key=item.index
+      >
+        <i :class=item.ico></i>
+        <span slot="title">{{item.label}}</span>
       </el-menu-item>
       <el-menu-item index="-1" style="margin-bottom: 0">
         <span>退出登录</span>
@@ -34,16 +28,39 @@
 <script>
 import {deleteCookie, getCookie, setCookie} from "../../commom/utils";
 import {LIFE_COOKIE} from "../../commom/constant";
+import {menuIndex} from "../../commom/global";
 
 export default {
   name: "AsideCom",
+  computed: {
+    menuIndex() {
+      return menuIndex
+    }
+  },
   props:{
-    isShowAside:Boolean
+    isShowAside:Boolean,
+  },
+  data(){
+    return{
+      menuItems:[
+        {index:'0', label:'我的信息', path:window.g.routePath.INFO, ico:'el-icon-user-solid'},
+        {index:'1', label:'我的发布', path:window.g.routePath.PUBLISH, ico:'el-icon-upload2'},
+        {index:'2', label:'我的收藏', path:window.g.routePath.FAVOURITE, ico:'el-icon-star-on'},
+        {index:'3', label:'我的消息', path:window.g.routePath.MESSAGE, ico:'el-icon-chat-dot-round'},
+      ],
+    }
   },
   methods:{
     handleClick(value){
       if(value === '-1'){
         this.logOut()
+      }else{
+        if(value === menuIndex.asideIndex){
+          return
+        }
+        menuIndex.asideIndex = value
+        menuIndex.headerIndex = ''
+        this.$router.push(this.menuItems[value].path)
       }
     },
     logOut(){

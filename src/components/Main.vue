@@ -1,24 +1,30 @@
 <template>
   <el-container style="height: 100%">
-    <el-container>
-      <el-header style="height: 4%;padding: 0 0 0 0">
-        <HeaderCom :isShowAside="isShowAside" :changeAside="clickAside"></HeaderCom>
+    <el-container style="height: 5%;padding: 0 0 0 0">
+      <el-header style="height: 100%">
+        <HeaderCom
+          :isShowAside="isShowAside" :changeAside="clickAside"
+          :setAsideActive="setAsideActiveIndex"
+          :activeIndex="headerActiveIndex"
+          style="height: 100%"></HeaderCom>
       </el-header>
     </el-container>
 
 
-    <el-container style="height: 87%">
-      <el-main style="height: 100%;background-color: black" >
+    <el-container style="height: 89%">
+      <el-main style="height: 100%;background-color: rgba(238, 242, 240, 0.2)" >
         <router-view/>
       </el-main>
       <AsideCom
         :isShowAside="isShowAside"
+        :activeIndex="asideActiveIndex"
+        :setHeaderActive="setHeaderActiveIndex"
         style="height: 100%"
       >
       </AsideCom>
     </el-container>
 
-    <el-footer style="height: 5%">
+    <el-footer style="height: 6%;background-color: black">
       <FooterCom></FooterCom>
     </el-footer>
 
@@ -43,12 +49,19 @@ export default {
   data(){
     return{
       isShowAside:false,
+      asideActiveIndex:'',
+      headerActiveIndex:'0',
     }
   },
   methods:{
     clickAside(){
       this.isShowAside = !this.isShowAside
-      console.log(this.isShowAside)
+    },
+    setAsideActiveIndex(value){
+      this.asideActiveIndex = value
+    },
+    setHeaderActiveIndex(value){
+      this.headerActiveIndex = value
     }
   }
 }
