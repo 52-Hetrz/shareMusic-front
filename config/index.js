@@ -6,7 +6,9 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
+    // npm run dev  : 独立在本地运行前端项目时使用该配置
+    // 独立运行的代理转发配置为 proxyTable
+    // 独立运行时，前端端口号为8080
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
