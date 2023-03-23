@@ -39,8 +39,13 @@ export default new Router({
         },
         {
           path: window.g.routePath.PUBLISH,
-          name:'Publish',
-          component: ()=> import("@/components/subComponents/user/Publish")
+          name:'Published',
+          component: ()=> import("@/components/subComponents/user/Published"),
+        },
+        {
+          path: window.g.routePath.TO_PUBLISH,
+          name:'ToPublish',
+          component: ()=> import("@/components/subComponents/user/ToPublish"),
         },
         {
           path: window.g.routePath.FAVOURITE,
