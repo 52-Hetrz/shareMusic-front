@@ -53,3 +53,10 @@ export const getCookie = function (cookieName){
 export const deleteCookie = (cookieName)=>{
   document.cookie = cookieName+"=; expires=Thu, 01 Jan 1970 00:00:00 GMT"
 }
+
+export const showTypeMessage = (_this, msg, type='success')=>{
+  _this.$message({
+    message: msg,
+    type: type
+  })
+}

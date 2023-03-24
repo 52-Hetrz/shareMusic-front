@@ -12,7 +12,7 @@ export default {
   name: "Published",
   methods:{
     toPublishSubPage(){
-      this.$router.push('/main/'+window.g.routePath.TO_PUBLISH)
+      this.$router.push('/main/'+window.g.routePath.TO_PUBLISH_MUSIC)
     }
   }
 }

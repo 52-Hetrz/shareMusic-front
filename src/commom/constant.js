@@ -13,6 +13,19 @@ export const REGISTER_INFO={
   email:"",
 }
 
+export const TO_PUBLISH_MUSIC={
+  title:'',
+  musicName:'',
+  content:'',
+  link:'',
+  images:[]
+}
+
+export const TAG_TYPE={
+  'music':'Music',
+  'movie':'Movie',
+}
+
 // 用户cookie的名称
 export const LIFE_COOKIE = 'lifeUser'
 // session中存储的用户id

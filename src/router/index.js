@@ -38,14 +38,24 @@ export default new Router({
           component: ()=> import("@/components/subComponents/user/Message")
         },
         {
-          path: window.g.routePath.PUBLISH,
-          name:'Published',
-          component: ()=> import("@/components/subComponents/user/Published"),
+          path: window.g.routePath.PUBLISHED_MUSIC,
+          name:'PublishedMusic',
+          component: ()=> import("@/components/subComponents/user/publish/PublishedMusic"),
         },
         {
-          path: window.g.routePath.TO_PUBLISH,
-          name:'ToPublish',
-          component: ()=> import("@/components/subComponents/user/ToPublish"),
+          path: window.g.routePath.TO_PUBLISH_MUSIC,
+          name:'ToPublishMusic',
+          component: ()=> import("@/components/subComponents/user/publish/ToPublishMusic"),
+        },
+        {
+          path: window.g.routePath.PUBLISHED_MOVIE,
+          name:'PublishedMovie',
+          component: ()=> import("@/components/subComponents/user/publish/PublishedMovie"),
+        },
+        {
+          path:window.g.routePath.TO_PUBLISH_MOVIE,
+          name:"ToPublishMovie",
+          component: ()=> import("@/components/subComponents/user/publish/ToPublishMovie")
         },
         {
           path: window.g.routePath.FAVOURITE,

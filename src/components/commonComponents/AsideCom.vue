@@ -10,14 +10,45 @@
       style="height: 100%"
       @select="handleClick"
     >
-      <el-menu-item
+      <template
         v-for="item in this.menuItems"
-        :index=item.index
-        :key=item.index
       >
-        <i :class=item.ico></i>
-        <span slot="title">{{item.label}}</span>
-      </el-menu-item>
+        <el-menu-item
+          style="text-align: left"
+          v-if="!item.isMulti"
+          :index=item.path
+          :key=item.index
+        >
+          <i :class=item.ico></i>
+          <span slot="title">{{item.label}}</span>
+        </el-menu-item>
+        <el-submenu
+          style="text-align: left"
+          v-else
+          :index=item.index
+        >
+          <template slot="title">
+            <i :class=item.ico></i>
+            <span>{{item.label}}</span>
+          </template>
+              <el-menu-item
+                style="text-align: center"
+                v-for="subItem in item.children"
+                :index=subItem.path
+                :key=subItem.index
+                :path=subItem.path
+              >{{subItem.label}}</el-menu-item>
+        </el-submenu>
+      </template>
+<!--      <el-menu-item-->
+<!--        v-for="item in this.menuItems"-->
+<!--        :index=item.index-->
+<!--        :key=item.index-->
+<!--      >-->
+<!--        <i :class=item.ico></i>-->
+<!--        <span slot="title">{{item.label}}</span>-->
+<!--      </el-menu-item>-->
+
       <el-menu-item index="-1" style="margin-bottom: 0">
         <span>退出登录</span>
       </el-menu-item>
@@ -43,24 +74,27 @@ export default {
   data(){
     return{
       menuItems:[
-        {index:'0', label:'我的信息', path:window.g.routePath.INFO, ico:'el-icon-user-solid'},
-        {index:'1', label:'我的发布', path:window.g.routePath.PUBLISH, ico:'el-icon-upload2'},
-        {index:'2', label:'我的收藏', path:window.g.routePath.FAVOURITE, ico:'el-icon-star-on'},
-        {index:'3', label:'我的消息', path:window.g.routePath.MESSAGE, ico:'el-icon-chat-dot-round'},
+        {index:'0', label:'我的信息', path:window.g.routePath.INFO, ico:'el-icon-user-solid',isMulti:false},
+        {index:'1', label:'我的发布', ico:'el-icon-upload2',children:[
+            {label:'音乐',index:'1-1', path:window.g.routePath.PUBLISHED_MUSIC},
+            {label:'电影',index:'1-2', path:window.g.routePath.PUBLISHED_MOVIE}
+          ],isMulti:true},
+        {index:'2', label:'我的收藏', path:window.g.routePath.FAVOURITE, ico:'el-icon-star-on',isMulti:false},
+        {index:'3', label:'我的消息', path:window.g.routePath.MESSAGE, ico:'el-icon-chat-dot-round',isMulti:false},
       ],
     }
   },
   methods:{
-    handleClick(value){
-      if(value === '-1'){
+    handleClick(index){
+      if(index === '-1'){
         this.logOut()
       }else{
-        if(value === menuIndex.asideIndex){
+        if(index === menuIndex.asideIndex){
           return
         }
-        menuIndex.asideIndex = value
+        menuIndex.asideIndex = index
         menuIndex.headerIndex = ''
-        this.$router.push(this.menuItems[value].path)
+        this.$router.push(index)
       }
     },
     logOut(){
