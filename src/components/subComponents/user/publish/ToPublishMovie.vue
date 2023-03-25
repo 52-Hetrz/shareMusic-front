@@ -1,5 +1,9 @@
 <template>
-  <div>准备发布电影分享</div>
+  <div>
+
+    准备发布电影分享
+
+  </div>
 </template>
 
 <script>

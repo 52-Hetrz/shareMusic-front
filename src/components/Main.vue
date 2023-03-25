@@ -3,9 +3,7 @@
     <el-container style="height: 5%;padding: 0 0 0 0">
       <el-header style="height: 100%">
         <HeaderCom
-          :isShowAside="isShowAside" :changeAside="clickAside"
-          :setAsideActive="setAsideActiveIndex"
-          :activeIndex="headerActiveIndex"
+          :isShowAside="isShowAside" :changeAside="clickAside" :defaultIndex="this.activeIndex"
           style="height: 100%"></HeaderCom>
       </el-header>
     </el-container>
@@ -16,9 +14,7 @@
         <router-view/>
       </el-main>
       <AsideCom
-        :isShowAside="isShowAside"
-        :activeIndex="asideActiveIndex"
-        :setHeaderActive="setHeaderActiveIndex"
+        :isShowAside="isShowAside" :defaultIndex="this.activeIndex"
         style="height: 100%"
       >
       </AsideCom>
@@ -35,11 +31,12 @@
 import HeaderCom from "./commonComponents/HeaderCom.vue";
 import AsideCom from "./commonComponents/AsideCom.vue";
 import FooterCom from "./commonComponents/FooterCom.vue";
-import {getCookie} from "../commom/utils";
+import {deepCopy, getCookie} from "../commom/utils";
 import {LIFE_COOKIE, LIFE_SESSION_USER_ID} from "../commom/constant";
 export default {
   name: "Main",
   mounted() {
+    this.$router.push(this.activeIndex)
   },
   components:{
     HeaderCom,
@@ -49,20 +46,13 @@ export default {
   data(){
     return{
       isShowAside:false,
-      asideActiveIndex:'',
-      headerActiveIndex:'0',
+      activeIndex:window.g.routePath.MUSIC
     }
   },
   methods:{
     clickAside(){
       this.isShowAside = !this.isShowAside
     },
-    setAsideActiveIndex(value){
-      this.asideActiveIndex = value
-    },
-    setHeaderActiveIndex(value){
-      this.headerActiveIndex = value
-    }
   }
 }
 </script>

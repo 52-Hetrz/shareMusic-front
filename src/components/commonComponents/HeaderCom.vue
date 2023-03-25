@@ -1,4 +1,4 @@
-<template >
+<template>
   <div>
     <el-row :gutter="2" style="height: 100%">
       <el-col :span="3" style="height: 100%">
@@ -12,14 +12,14 @@
       >
         <el-menu
           style="padding-right: 10px;height: 100%"
-          :default-active="menuIndex.headerIndex"
+          :default-active="activeIndex"
           active-text-color="#67C23A"
           mode="horizontal"
           @select="menuChange">
           <el-menu-item
             style="font-size: 15px;height: 100%;padding-top: -2px"
             v-for="item of this.menuItems"
-            :index="item.index"
+            :index=item.path
             :key="item.index"
           >
             <div style="margin-top: -10px">{{item.label}}</div>
@@ -78,17 +78,19 @@
 import title from "./Title.vue";
 import {LIFE_SESSION_USER_ID} from "../../commom/constant";
 import {menuIndex} from "../../commom/global";
+import bus from "../../commom/eventBus";
 
 export default {
   name: "HeaderCom",
-  computed: {
-    menuIndex() {
-      return menuIndex
-    }
+  created() {
+    bus.$on('activeIndex',val=>{
+      this.activeIndex = val
+    })
   },
   props:{
     isShowAside:Boolean,
     changeAside:Function,
+    defaultIndex:String,
   },
   mounted() {
     this.userName = sessionStorage.getItem(LIFE_SESSION_USER_ID)
@@ -100,21 +102,25 @@ export default {
     return{
       titleImage:'static/images/sky.jpg',
       headImage:"static/images/head.png",
+      activeIndex:this.defaultIndex,
       userName:'',
       menuItems:[{label:'音乐',index:'0',path:window.g.routePath.MUSIC},{label:'电影',index: '1',path:window.g.routePath.MOVIE}]
     }
   },
   methods:{
-    menuChange(key){
-      if(key === menuIndex.headerIndex){
+    menuChange(index){
+      if(index === this.activeIndex){
         return
       }
-      menuIndex.asideIndex=''
-      menuIndex.headerIndex = key
-      this.$router.push(this.menuItems[key].path)
+      this.activeIndex = index
+      this.sendActiveIndex(index)
+      this.$router.push(index)
     },
     clickHead(){
       this.changeAside()
+    },
+    sendActiveIndex(index){
+      bus.$emit('activeIndex',index)
     }
   }
 

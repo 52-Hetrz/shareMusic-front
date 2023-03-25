@@ -38,7 +38,7 @@ import {TO_PUBLISH_MUSIC} from "../../../../commom/constant";
 import {deepCopy, showTypeMessage} from "../../../../commom/utils";
 import {allMusicTags} from "../../../../apis/tag";
 export default {
-  name: "ToPublish",
+  name: "ToPublishMusic",
   mounted() {
     this.getAllTags()
   },

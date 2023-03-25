@@ -9,10 +9,10 @@
 
 <script>
 export default {
-  name: "Published",
+  name: "PublishedMusic",
   methods:{
     toPublishSubPage(){
-      this.$router.push('/main/'+window.g.routePath.TO_PUBLISH_MUSIC)
+      this.$router.push(window.g.routePath.TO_PUBLISH_MUSIC)
     }
   }
 }
