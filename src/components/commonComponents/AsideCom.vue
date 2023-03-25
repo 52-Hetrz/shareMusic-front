@@ -14,7 +14,7 @@
         v-for="item in this.menuItems"
       >
         <el-menu-item
-          style="text-align: left"
+          style="text-align: center"
           v-if="!item.isMulti"
           :index=item.path
           :key=item.index
@@ -23,7 +23,7 @@
           <span slot="title">{{item.label}}</span>
         </el-menu-item>
         <el-submenu
-          style="text-align: left"
+          style="text-align: center"
           v-else
           :index=item.index
         >
@@ -32,7 +32,7 @@
             <span>{{item.label}}</span>
           </template>
               <el-menu-item
-                style="text-align: center"
+                style="text-align: center;color: black"
                 v-for="subItem in item.children"
                 :index=subItem.path
                 :key=subItem.index
@@ -40,19 +40,12 @@
               >{{subItem.label}}</el-menu-item>
         </el-submenu>
       </template>
-<!--      <el-menu-item-->
-<!--        v-for="item in this.menuItems"-->
-<!--        :index=item.index-->
-<!--        :key=item.index-->
-<!--      >-->
-<!--        <i :class=item.ico></i>-->
-<!--        <span slot="title">{{item.label}}</span>-->
-<!--      </el-menu-item>-->
-
       <el-menu-item index="-1" style="margin-bottom: 0">
+        <i class="el-icon-switch-button"></i>
         <span>退出登录</span>
       </el-menu-item>
     </el-menu>
+
   </div>
 </template>
 
@@ -75,7 +68,7 @@ export default {
     return{
       menuItems:[
         {index:'0', label:'我的信息', path:window.g.routePath.INFO, ico:'el-icon-user-solid',isMulti:false},
-        {index:'1', label:'我的发布', ico:'el-icon-upload2',children:[
+        {index:'1', label:'我的发布', ico:'el-icon-folder-checked',children:[
             {label:'音乐',index:'1-1', path:window.g.routePath.PUBLISHED_MUSIC},
             {label:'电影',index:'1-2', path:window.g.routePath.PUBLISHED_MOVIE}
           ],isMulti:true},
@@ -109,8 +102,7 @@ export default {
 
 <style scoped>
 .el-aside-menu:not(.el-menu--collapse) {
-  width: 150px;
-  min-width: 20px;
+  width: 200px;
   min-height: 400px;
 }
 </style>
