@@ -36,7 +36,7 @@
 
 import {TO_PUBLISH_MUSIC} from "../../../../commom/constant";
 import {deepCopy, showTypeMessage} from "../../../../commom/utils";
-import {allMusicTags} from "../../../../apis/tag";
+import {allMusicTags} from "../../../../apis/attached";
 export default {
   name: "ToPublishMusic",
   mounted() {
