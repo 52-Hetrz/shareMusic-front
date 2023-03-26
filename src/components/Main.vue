@@ -1,6 +1,6 @@
 <template>
   <el-container style="height: 100%">
-    <el-container style="height: 5%;padding: 0 0 0 0">
+    <el-container style="height: 5.5%;padding: 0 0 0 0">
       <el-header style="height: 100%">
         <HeaderCom
           :isShowAside="isShowAside" :changeAside="clickAside" :defaultIndex="this.activeIndex"
@@ -20,7 +20,7 @@
       </AsideCom>
     </el-container>
 
-    <el-footer style="height: 6%;background-color: black">
+    <el-footer style="height: 5.5%;background-color: black">
       <FooterCom></FooterCom>
     </el-footer>
 

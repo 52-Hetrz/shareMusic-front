@@ -10,7 +10,9 @@
       style="height: 100%"
       @select="handleClick"
     >
-      <el-submenu>
+      <el-submenu
+      :index="this.menuItems[1].index"
+      >
         <template slot="title"><i :class=this.menuItems[1].ico></i>
           <span>{{this.menuItems[1].label}}</span></template>
         <el-menu-item
@@ -73,7 +75,6 @@ export default {
   name: "AsideCom",
   async mounted() {
     await this.invokeIndexAndPath(this.menuItems, this.indexPathMap)
-    console.log(this.indexPathMap)
   },
   created() {
     bus.$on('activeIndex',val=>{

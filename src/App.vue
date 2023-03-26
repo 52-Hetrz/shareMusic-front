@@ -5,12 +5,10 @@
 </template>
 
 <script>
-import {testUser} from "./apis/user";
 
 export default {
   name: 'App',
   mounted() {
-    console.log(sessionStorage)
   }
 }
 </script>

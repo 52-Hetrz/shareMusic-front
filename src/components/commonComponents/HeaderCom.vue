@@ -17,7 +17,7 @@
           mode="horizontal"
           @select="menuChange">
           <el-menu-item
-            style="font-size: 15px;height: 100%;padding-top: -2px"
+            style="font-size: 15px;height: 100%;padding-top: -2px;width: 100px"
             v-for="item of this.menuItems"
             :index=item.path
             :key="item.index"
