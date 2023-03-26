@@ -33,10 +33,11 @@ import AsideCom from "./commonComponents/AsideCom.vue";
 import FooterCom from "./commonComponents/FooterCom.vue";
 import {deepCopy, getCookie} from "../commom/utils";
 import {LIFE_COOKIE, LIFE_SESSION_USER_ID} from "../commom/constant";
+import {activateIndex} from "../commom/global";
 export default {
   name: "Main",
   mounted() {
-    this.$router.push(this.activeIndex)
+    // this.$router.push(this.activeIndex)
   },
   components:{
     HeaderCom,
@@ -46,7 +47,7 @@ export default {
   data(){
     return{
       isShowAside:false,
-      activeIndex:window.g.routePath.MUSIC
+      activeIndex:sessionStorage.getItem('activeIndex')===''?window.g.routePath.MUSIC:sessionStorage.getItem('activeIndex')
     }
   },
   methods:{

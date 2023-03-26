@@ -114,6 +114,7 @@ export default {
       }
       this.activeIndex = index
       this.sendActiveIndex(index)
+      sessionStorage.setItem('activeIndex',index)
       this.$router.push(index)
     },
     clickHead(){

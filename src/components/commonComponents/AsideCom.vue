@@ -6,7 +6,6 @@
       class="el-aside-menu"
       background-color="rgba(240, 242, 241, 0.8)"
       text-color="black"
-      router
       :default-active="activeIndex"
       style="height: 100%"
       @select="handleClick"
@@ -15,6 +14,7 @@
         <template slot="title"><i :class=this.menuItems[1].ico></i>
           <span>{{this.menuItems[1].label}}</span></template>
         <el-menu-item
+          style="text-align: center"
           v-for="item in this.menuItems[1].children"
           :index=item.path
           :key=item.index
@@ -27,7 +27,7 @@
         :key=item.index
       >
         <i :class=item.ico></i>
-        <span>{{item.label}}</span>
+        <span slot="title">{{item.label}}</span>
       </el-menu-item>
       <el-menu-item index="-1" style="margin-bottom: 0">
         <i class="el-icon-switch-button"></i>
@@ -110,11 +110,13 @@ export default {
         }
         this.activeIndex = index
         this.sendActiveIndex(index)
+        sessionStorage.setItem('activeIndex',index)
         this.$router.push(index)
       }
     },
     logOut(){
       deleteCookie(LIFE_COOKIE)
+      sessionStorage.setItem('activeIndex','')
       this.$router.push("/")
     },
     invokeIndexAndPath(items, map){
