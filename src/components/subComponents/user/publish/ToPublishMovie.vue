@@ -12,7 +12,7 @@
       </el-col>
     </el-row>
 
-    <el-row>
+    <el-row class="main-row-margin">
       <el-form
         style="height: 86%;margin-top: 20px"
         ref="movieForm"
@@ -23,14 +23,14 @@
       >
         <el-row>
           <el-col :span="16" style="border-right: 1px solid rgba(141, 198, 6, 0.8)">
-            <el-row>
+            <el-row class="sub-row-margin">
               <el-col :offset=leftFormOffset :span="16">
                 <el-form-item label="电影名称" prop="movieName">
                   <el-input v-model="dataForm.movieName"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-row>
+            <el-row class="sub-row-margin">
               <el-col :offset=leftFormOffset :span="16">
                 <el-form-item label="标题" prop="title">
                   <el-input v-model="dataForm.title"></el-input>
@@ -38,7 +38,7 @@
               </el-col>
             </el-row>
 
-            <el-row>
+            <el-row class="sub-row-margin">
               <el-col :offset=leftFormOffset :span="20">
                 <el-form-item label="内容" prop="content">
                   <el-input
@@ -54,32 +54,32 @@
             </el-row>
           </el-col>
           <el-col :offset="1" :span="6">
-            <el-row>
+            <el-row class="sub-row-margin">
               <el-form-item label="导演">
                 <el-input v-model="dataForm.director"></el-input>
               </el-form-item>
             </el-row>
-            <el-row>
+            <el-row class="sub-row-margin">
               <el-form-item label="主演">
                 <el-input v-model="dataForm.leaderActor"></el-input>
               </el-form-item>
             </el-row>
-            <el-row>
+            <el-row class="sub-row-margin">
               <el-form-item label="国家/地区">
                 <el-input v-model="dataForm.area" placeholder="e.g 欧美 / 大陆 / 香港 / 美国"></el-input>
               </el-form-item>
             </el-row>
-            <el-row>
+            <el-row class="sub-row-margin">
               <el-form-item label="上映时间">
                 <el-input v-model="dataForm.releaseTime" placeholder="e.g 2020年 / 二十世纪七十年代"></el-input>
               </el-form-item>
             </el-row>
-            <el-row>
+            <el-row class="sub-row-margin">
               <el-form-item
                 label="播放源"
               >
                 <el-select
-                  v-model="dataForm.source"
+                  v-model="dataForm.sources"
                   multiple
                 >
                   <el-option
@@ -106,7 +106,7 @@
                 </el-select>
               </el-form-item>
             </el-row>
-            <el-row>
+            <el-row class="sub-row-margin">
               <el-form-item label="标签">
                 <el-tag
                   v-for="tag in dataForm.tags"
@@ -136,7 +136,7 @@
       </el-form>
     </el-row>
 
-    <el-row style="margin-top: 20px">
+    <el-row class="main-row-margin">
       <el-upload
         action="#"
         list-type="picture-card"
@@ -173,7 +173,7 @@
         <el-image :src="dialogImageUrl"></el-image>
       </el-dialog>
     </el-row>
-    <el-row>
+    <el-row class="main-row-margin">
       <el-button @click="submitMovie">发布</el-button>
     </el-row>
   </div>
@@ -184,6 +184,7 @@ import {allMovieTags, allMovieSources} from "../../../../apis/attached";
 import {deepCopy, showTypeMessage} from "../../../../commom/utils";
 import {TO_PUBLISH_MOVIE} from "../../../../commom/constant";
 import {data} from "autoprefixer";
+import {publishMovie} from "../../../../apis/movie/user";
 
 export default {
   name: "ToPublishMovie",
@@ -312,8 +313,20 @@ export default {
       }
     },
     /** 发布 */
-    submitMovie(){
-      console.log(this.dataForm)
+    async submitMovie(){
+      let submitModel = {}
+      let images = this.dataForm.images
+      for(let attr in this.dataForm){
+        if(attr !== 'images'){
+          submitModel[attr] = this.dataForm[attr]
+        }
+      }
+      let form = new FormData()
+      for(let i =0;i<images.length;i++){
+        form.append('images',images[i].raw)
+      }
+      form.append('movie',new Blob([JSON.stringify(submitModel)],{type:'application/json'}))
+      // await publishMovie(form)
     }
   }
 }
@@ -334,6 +347,12 @@ export default {
   width: 90px;
   margin-left: 10px;
   vertical-align: bottom;
+}
+.main-row-margin {
+  margin-top: 1%;
+}
+.sub-row-margin {
+  margin-top: 0.5%;
 }
 .my-el-upload-list {
   vertical-align: middle;

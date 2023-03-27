@@ -29,7 +29,7 @@ export const TO_PUBLISH_MOVIE={
   releaseTime:'',
   area:'',
   tags:[],
-  source:[],
+  sources:[],
   images:[],
 }
 
