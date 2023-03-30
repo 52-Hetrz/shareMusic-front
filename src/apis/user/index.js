@@ -15,6 +15,9 @@ export const login = async(model)=>{
 }
 
 export const checkCookie = async(cookie)=>{
-  const {data:res} = await request.post(preUrl+"/check",cookie)
+  console.log('api:'+cookie)
+  const {data:res} = await request.post(preUrl+"/check",{
+    cookie:cookie
+  })
   return res
 }

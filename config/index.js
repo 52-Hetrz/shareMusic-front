@@ -14,10 +14,10 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://localhost:8888', // target host 本人后端接口（本地电脑IP）地址
+        target: 'http://localhost:8889', // target host 本人后端接口（本地电脑IP）地址
         changeOrigin: true, // needed for virtual hosted sites
         pathRewrite: {
-          '^/api': 'http://localhost:8888' // rewrite path
+          '^/api': 'http://localhost:8889' // rewrite path
         }
       }
     },

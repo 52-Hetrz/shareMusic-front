@@ -25,7 +25,7 @@ export const TO_PUBLISH_MOVIE={
   movieName:'',
   content:'',
   director:'',
-  leaderActor:'',
+  leadActor:'',
   releaseTime:'',
   area:'',
   tags:[],
@@ -44,3 +44,4 @@ export const MOVIE_TAG = 'Movie'
 export const LIFE_COOKIE = 'lifeUser'
 // session中存储的用户id
 export const LIFE_SESSION_USER_ID = "lifeUserId"
+export const LIFE_SESSION_USER_NAME = "lifeUserName"

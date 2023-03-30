@@ -117,6 +117,7 @@ export default {
     },
     logOut(){
       deleteCookie(LIFE_COOKIE)
+      sessionStorage.clear()
       sessionStorage.setItem('activeIndex','')
       this.$router.push("/")
     },

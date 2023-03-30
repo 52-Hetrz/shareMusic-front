@@ -118,7 +118,7 @@
 
 <script>
 import {deepCopy, deleteCookie, getCookie, setCookie} from "../commom/utils";
-import {LIFE_COOKIE, LIFE_SESSION_USER_ID, LOGIN_INFO, REGISTER_INFO} from "../commom/constant";
+import {LIFE_COOKIE, LIFE_SESSION_USER_ID, LIFE_SESSION_USER_NAME, LOGIN_INFO, REGISTER_INFO} from "../commom/constant";
 import {checkCookie, login, register} from "../apis/user";
 
 export default {
@@ -152,7 +152,7 @@ export default {
     }
     const validateUserName = (rule, value, callback)=>{
       if(!(/^[0-9a-zA-Z_｜\u4e00-\u9fa5]*$/.test(value))){
-        callback(new Error("用户名仅可以包括数字、字母以及下划线"))
+        callback(new Error("用户名仅可以包括数字、字母、中文以及下划线"))
       }else{
         callback()
       }
@@ -207,9 +207,11 @@ export default {
           type:'success'
         })
         deleteCookie(LIFE_COOKIE)
-        setCookie(LIFE_COOKIE,res.data,1)
+        console.log(res.data)
+        setCookie(LIFE_COOKIE,res.data.cookie,1)
         // console.log('after login:'+getCookie(LIFE_COOKIE))
-        window.sessionStorage.setItem(LIFE_SESSION_USER_ID,this.loginInfo.name)
+        window.sessionStorage.setItem(LIFE_SESSION_USER_ID,res.data.userId)
+        window.sessionStorage.setItem(LIFE_SESSION_USER_NAME,this.loginInfo.name)
         await this.$router.push("/main")
       },
       // 注册
@@ -230,20 +232,21 @@ export default {
           type:'success'
         })
         deleteCookie(LIFE_COOKIE)
-        setCookie(LIFE_COOKIE, res.data,1)
-        window.sessionStorage.setItem(LIFE_SESSION_USER_ID,this.registerInfo.name)
+        setCookie(LIFE_COOKIE, res.data.cookie,1)
+        window.sessionStorage.setItem(LIFE_SESSION_USER_ID,res.data.userId)
+        window.sessionStorage.setItem(LIFE_SESSION_USER_NAME,this.registerInfo.name)
         await this.$router.push("/main")
       },
 
       async checkCookieExist(){
         let cookie = getCookie(LIFE_COOKIE)
-        // console.log('before login:'+cookie)
         if(cookie === ''|| cookie === null){
           return false
         }
         let res = await checkCookie(cookie)
         if(res.code === 200){
-          window.sessionStorage.setItem(LIFE_SESSION_USER_ID, res.data)
+          window.sessionStorage.setItem(LIFE_SESSION_USER_ID, res.data.userId)
+          window.sessionStorage.setItem(LIFE_SESSION_USER_NAME, res.data.userName)
           await this.$router.push("/main")
         }
       },

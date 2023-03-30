@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {LIFE_SESSION_USER_ID} from "../commom/constant";
+import {LIFE_SESSION_USER_ID, LIFE_SESSION_USER_NAME} from "../commom/constant";
 
 axios.defaults.withCredentials = true;
 
@@ -17,6 +17,8 @@ const whiteUrls=["/admin/login","/admin/register"]
 // 请求拦截器。拦截客户端发出的请求，并进行处理
 request.interceptors.request.use((config) => {
   config.headers[LIFE_SESSION_USER_ID] = sessionStorage.getItem(LIFE_SESSION_USER_ID)
+  // config.headers[LIFE_SESSION_USER_NAME] = sessionStorage.getItem(LIFE_SESSION_USER_NAME)
+  config.withCredentials = true
   // config.headers['Content-Type'] = 'application/json;charset=utf-8';
   //
   // //取出sessionStorage里面缓存的用户信息

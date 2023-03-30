@@ -61,7 +61,7 @@
             </el-row>
             <el-row class="sub-row-margin">
               <el-form-item label="主演">
-                <el-input v-model="dataForm.leaderActor"></el-input>
+                <el-input v-model="dataForm.leadActor"></el-input>
               </el-form-item>
             </el-row>
             <el-row class="sub-row-margin">
@@ -292,6 +292,7 @@ export default {
       this.handleInputTagConfirm()
     },
     /** 上传照片 */
+
     handleRemove(file) {
       let fileList = this.dataForm.images
       for(let i in fileList){

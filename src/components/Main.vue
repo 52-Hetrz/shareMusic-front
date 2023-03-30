@@ -38,6 +38,7 @@ export default {
   name: "Main",
   mounted() {
     // this.$router.push(this.activeIndex)
+    console.log(sessionStorage)
   },
   components:{
     HeaderCom,
