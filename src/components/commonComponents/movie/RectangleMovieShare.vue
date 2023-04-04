@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import {MOVIE_STAR_TEXTS} from "../../commom/constant";
+import {MOVIE_STAR_TEXTS} from "../../../commom/constant";
 
 export default {
   name: "RectangleMovieShare",

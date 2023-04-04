@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import rectangleMovieShare from "../../../commonComponents/RectangleMovieShare.vue";
+import rectangleMovieShare from "../../../commonComponents/movie/RectangleMovieShare.vue";
 import {getPublishedMovie} from "../../../../apis/movie/user";
 import {RESULT_CODE} from "../../../../commom/constant";
 import {showTypeMessage} from "../../../../commom/utils";
