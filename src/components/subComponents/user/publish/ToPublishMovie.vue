@@ -182,7 +182,7 @@
 <script>
 import {allMovieTags, allMovieSources} from "../../../../apis/attached";
 import {deepCopy, showTypeMessage} from "../../../../commom/utils";
-import {TO_PUBLISH_MOVIE} from "../../../../commom/constant";
+import {MOVIE_SOURCE_IMAGES, MOVIE_SOURCE_STYLE, TO_PUBLISH_MOVIE} from "../../../../commom/constant";
 import {data} from "autoprefixer";
 import {publishMovie} from "../../../../apis/movie/user";
 
@@ -197,20 +197,8 @@ export default {
       tags:[],
       sources:[],
       dataForm:deepCopy(TO_PUBLISH_MOVIE),
-      sourceImages:{
-        bilibili:"bilibili.svg",
-        YOUKU:'YOUKU.svg',
-        Tencent:'Tencent2.svg',
-        QIY:'QIY.png',
-        MiGu:'MiGu.png'
-      },
-      sourceImagesStyle:{
-        bilibili:"width: 40px;height: 40px",
-        YOUKU:"width: 40px;height: 40px",
-        Tencent:"width: 50px;height: 60px;margin-top:-12px",
-        QIY:"width: 50px;height: 50px;margin-top:-5px",
-        MiGu:"width: 28px;height: 40px;margin-left:5px"
-      },
+      sourceImages:deepCopy(MOVIE_SOURCE_IMAGES),
+      sourceImagesStyle:deepCopy(MOVIE_SOURCE_STYLE),
       rules:{
         movieName:{required: true, message: '请填写标题', trigger: 'blur'},
         content:{required: true, message: '请填写内容', trigger: 'blur'},
@@ -327,7 +315,13 @@ export default {
         form.append('images',images[i].raw)
       }
       form.append('movie',new Blob([JSON.stringify(submitModel)],{type:'application/json'}))
-      // await publishMovie(form)
+      let res = await publishMovie(form)
+      if(res.code !== 200){
+        showTypeMessage(this, res.data,"error")
+      }else{
+        this.dataForm = deepCopy(TO_PUBLISH_MOVIE)
+        showTypeMessage(this, "发布成功","success")
+      }
     }
   }
 }

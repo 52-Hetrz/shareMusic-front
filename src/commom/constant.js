@@ -45,3 +45,23 @@ export const LIFE_COOKIE = 'lifeUser'
 // session中存储的用户id
 export const LIFE_SESSION_USER_ID = "lifeUserId"
 export const LIFE_SESSION_USER_NAME = "lifeUserName"
+
+export const MOVIE_SOURCE_IMAGES = {
+  bilibili:"bilibili.svg",
+  YOUKU:'YOUKU.svg',
+  Tencent:'Tencent2.svg',
+  QIY:'QIY.png',
+  MiGu:'MiGu.jpg'
+}
+
+export const MOVIE_SOURCE_STYLE = {
+  bilibili:"width: 40px;height: 40px",
+  YOUKU:"width: 40px;height: 40px",
+  Tencent:"width: 50px;height: 60px;margin-top:-12px",
+  QIY:"width: 50px;height: 50px;margin-top:-5px",
+  MiGu:"width: 60px;height: 50px;margin-top:-8px;margin-left:-7px"
+}
+
+export const RESULT_CODE = {
+  NO_MORE_PUBLISHED_MOVIE: 5005
+}
