@@ -3,7 +3,7 @@
     <el-container style="height: 5.5%;padding: 0 0 0 0">
       <el-header style="height: 100%">
         <HeaderCom
-          :isShowAside="isShowAside" :changeAside="clickAside" :defaultIndex="this.activeIndex"
+          :isShowAside="isShowAside" :changeAside="clickAside"
           style="height: 100%"></HeaderCom>
       </el-header>
     </el-container>
@@ -14,13 +14,13 @@
         <router-view/>
       </el-main>
       <AsideCom
-        :isShowAside="isShowAside" :defaultIndex="this.activeIndex"
+        :isShowAside="isShowAside"
         style="height: 100%"
       >
       </AsideCom>
     </el-container>
 
-    <el-footer style="height: 5.5%;background-color: black">
+    <el-footer style="height: 5%;background-color: black">
       <FooterCom></FooterCom>
     </el-footer>
 
@@ -34,11 +34,14 @@ import FooterCom from "./commonComponents/FooterCom.vue";
 import {deepCopy, getCookie} from "../commom/utils";
 import {LIFE_COOKIE, LIFE_SESSION_USER_ID} from "../commom/constant";
 import {activateIndex} from "../commom/global";
+import bus from "../commom/eventBus";
 export default {
   name: "Main",
   mounted() {
-    // this.$router.push(this.activeIndex)
-    console.log(sessionStorage)
+    bus.$emit('activeIndex',
+      sessionStorage.getItem('activeIndex')===''||sessionStorage.getItem('activeIndex')===null?
+      window.g.routePath.MUSIC:sessionStorage.getItem('activeIndex')
+    )
   },
   components:{
     HeaderCom,
@@ -48,7 +51,7 @@ export default {
   data(){
     return{
       isShowAside:false,
-      activeIndex:sessionStorage.getItem('activeIndex')===''?window.g.routePath.MUSIC:sessionStorage.getItem('activeIndex')
+      //activeIndex:sessionStorage.getItem('activeIndex')===''?window.g.routePath.MUSIC:sessionStorage.getItem('activeIndex')
     }
   },
   methods:{

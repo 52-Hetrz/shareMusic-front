@@ -90,7 +90,7 @@ export default {
   props:{
     isShowAside:Boolean,
     changeAside:Function,
-    defaultIndex:String,
+    // defaultIndex:String,
   },
   mounted() {
     this.userName = sessionStorage.getItem(LIFE_SESSION_USER_ID)
@@ -102,7 +102,7 @@ export default {
     return{
       titleImage:'static/images/sky.jpg',
       headImage:"static/images/head.png",
-      activeIndex:this.defaultIndex,
+      activeIndex:"",
       userName:'',
       menuItems:[{label:'音乐',index:'0',path:window.g.routePath.MUSIC},{label:'电影',index: '1',path:window.g.routePath.MOVIE}]
     }

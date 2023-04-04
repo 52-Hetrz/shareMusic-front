@@ -83,7 +83,7 @@ export default {
   },
   props:{
     isShowAside:Boolean,
-    defaultIndex:String
+    // defaultIndex:String
   },
   data(){
     return{
@@ -97,7 +97,7 @@ export default {
         {index:'3', label:'我的消息', path:window.g.routePath.MESSAGE, ico:'el-icon-chat-dot-round',isMulti:false},
       ],
       indexPathMap:{},
-      activeIndex:this.defaultIndex,
+      activeIndex:"",
       timeKey:0,
     }
   },
