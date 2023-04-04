@@ -28,6 +28,7 @@ export const TO_PUBLISH_MOVIE={
   leadActor:'',
   releaseTime:'',
   area:'',
+  score:0,
   tags:[],
   sources:[],
   images:[],
@@ -65,3 +66,5 @@ export const MOVIE_SOURCE_STYLE = {
 export const RESULT_CODE = {
   NO_MORE_PUBLISHED_MOVIE: 5005
 }
+
+export const MOVIE_STAR_TEXTS=["极差","很差","一般","推荐","力荐"]

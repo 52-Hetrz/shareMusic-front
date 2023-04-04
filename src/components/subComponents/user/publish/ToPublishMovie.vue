@@ -23,20 +23,46 @@
       >
         <el-row>
           <el-col :span="16" style="border-right: 1px solid rgba(141, 198, 6, 0.8)">
-            <el-row class="sub-row-margin">
-              <el-col :offset=leftFormOffset :span="16">
-                <el-form-item label="电影名称" prop="movieName">
-                  <el-input v-model="dataForm.movieName"></el-input>
-                </el-form-item>
+            <el-row>
+              <el-col :span="10">
+                <el-row class="sub-row-margin" >
+                  <el-col :offset=5>
+                    <el-form-item label="电影名称" prop="movieName">
+                      <el-input v-model="dataForm.movieName"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row class="sub-row-margin">
+                  <el-col :offset=5>
+                    <el-form-item label="标题" prop="title">
+                      <el-input v-model="dataForm.title"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-col>
+              <el-col :offset="2" :span="6">
+                <el-row >
+                  <el-col :offset="2">
+                    <div style="margin-top: 20px;font-size: large">评分：</div>
+                  </el-col>
+                </el-row>
+                <el-row >
+                    <el-col :offset="10">
+                      <el-rate
+                        style="margin-top: 5%"
+                        v-model=dataForm.score
+                        show-text
+                        :texts=starTexts
+                        :colors=colors
+                        text-color="black"
+                        score-template="{value}">
+                      </el-rate>
+                    </el-col>
+                </el-row>
+
               </el-col>
             </el-row>
-            <el-row class="sub-row-margin">
-              <el-col :offset=leftFormOffset :span="16">
-                <el-form-item label="标题" prop="title">
-                  <el-input v-model="dataForm.title"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+
 
             <el-row class="sub-row-margin">
               <el-col :offset=leftFormOffset :span="20">
@@ -45,7 +71,7 @@
                     type="textarea"
                     v-model="dataForm.content"
                     rows="10"
-                    maxlength="1000"
+                    :maxlength=contentMaxLength
                     show-word-limit
                     resize="none"
                   ></el-input>
@@ -182,7 +208,7 @@
 <script>
 import {allMovieTags, allMovieSources} from "../../../../apis/attached";
 import {deepCopy, showTypeMessage} from "../../../../commom/utils";
-import {MOVIE_SOURCE_IMAGES, MOVIE_SOURCE_STYLE, TO_PUBLISH_MOVIE} from "../../../../commom/constant";
+import {MOVIE_SOURCE_IMAGES, MOVIE_SOURCE_STYLE, MOVIE_STAR_TEXTS, TO_PUBLISH_MOVIE} from "../../../../commom/constant";
 import {data} from "autoprefixer";
 import {publishMovie} from "../../../../apis/movie/user";
 
@@ -200,9 +226,12 @@ export default {
       sourceImages:deepCopy(MOVIE_SOURCE_IMAGES),
       sourceImagesStyle:deepCopy(MOVIE_SOURCE_STYLE),
       rules:{
-        movieName:{required: true, message: '请填写标题', trigger: 'blur'},
+        movieName:{required: true, message: '请填写电影名称', trigger: 'blur'},
         content:{required: true, message: '请填写内容', trigger: 'blur'},
       },
+      contentMaxLength:2000,
+      starTexts:MOVIE_STAR_TEXTS,
+      colors:['#99A9BF', '#F7BA2A', '#FF9900'],
       leftFormOffset:2,
       inputTagVisible:false,
       inputTag:'',

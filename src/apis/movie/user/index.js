@@ -10,3 +10,8 @@ export const publishMovie = async (model)=>{
   })
   return res
 }
+
+export const getPublishedMovie = async (start, size)=>{
+  const {data : res} = await request.get(preUrl+"/published/"+start+"/"+size)
+  return res
+}
