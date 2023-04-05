@@ -60,3 +60,20 @@ export const showTypeMessage = (_this, msg, type='success')=>{
     type: type
   })
 }
+
+/**
+ * 打开新标签跳转页面，此时传递的信息只能是字符串，类似于get方法，直接将参数放在路径中
+ * @param pagePath 需要跳转的全路由信息
+ * @param id 需要传递的id号
+ * @param _this 调用该方法的this
+ */
+export const toInfoPage = (pagePath, id, _this)=>{
+  console.log(pagePath)
+  const route = _this.$router.resolve({
+    path:pagePath,
+    query: {
+      id: id
+    }
+  })
+  window.open(route.href)
+}
