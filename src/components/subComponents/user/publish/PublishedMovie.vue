@@ -1,5 +1,5 @@
 <template style="height: 100%">
-  <div style="height: 100%;overflow: auto" id="publishedMovie">
+  <div style="height: 100%;overflow-y: auto;overflow-x: hidden" id="publishedMovie">
     <template>
       <el-backtop target="#publishedMovie" :visibility-height="400" :bottom="70"></el-backtop>
     </template>
@@ -13,9 +13,14 @@
             v-infinite-scroll="loadData"
             infinite-scroll-disabled="scrollDisabled"
             v-for="data of dataList"
-              :key="data.attr.id"
+            :key="data.attr.id"
     >
-      <rectangle-movie style="height: 100%" :movie-data="data.attr" :images="data.images">
+      <rectangle-movie
+        style="height: 100%"
+        :movie-data="data.attr"
+        :images="data.images"
+        :deleteMovieShare="deleteMovieShare"
+      >
 
       </rectangle-movie>
     </el-row>
@@ -29,7 +34,7 @@
 
 <script>
 import rectangleMovieShare from "../../../commonComponents/movie/RectangleMovieShare.vue";
-import {getPublishedMovie} from "../../../../apis/movie/user";
+import {deleteMovieShare, getPublishedMovie} from "../../../../apis/movie/user";
 import {RESULT_CODE} from "../../../../commom/constant";
 import {showTypeMessage} from "../../../../commom/utils";
 export default {
@@ -79,17 +84,20 @@ export default {
         showTypeMessage(this,res.message, "error")
       }
       this.loadingDataList = false
-      // setTimeout(() => {
-      //   this.dataList.push({key: this.count++})
-      //   this.dataList.push({key: this.count++})
-      //   this.dataList.push({key: this.count++})
-      //   this.loadingDataList = false
-      //   if(this.count >= 9){
-      //     this.noMoreData = true
-      //   }
-      // },2000)
-
     },
+
+    async deleteMovieShare(id){
+      let res = await deleteMovieShare(id)
+      if(res.code === 200){
+        for(let i=0;i<this.dataList.length;i++){
+          if(this.dataList[i].attr.id === id){
+            this.dataList.splice(i,1);
+          }
+        }
+      }else{
+        showTypeMessage(this, "删除失败","error")
+      }
+    }
   }
 }
 </script>

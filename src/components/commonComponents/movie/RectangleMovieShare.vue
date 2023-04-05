@@ -96,7 +96,7 @@
             </el-row>
 
             <el-row style="margin-bottom: 30%;">
-              <el-button @click="" icon="el-icon-remove-outline" type="primary" plain size="medium" round>
+              <el-button @click="clickDelete" icon="el-icon-remove-outline" type="primary" plain size="medium" round>
                 删除
               </el-button>
             </el-row>
@@ -152,7 +152,20 @@ export default {
         jointTags = jointTags.substring(1)
       }
       this.movieData.jointTags = jointTags
-    }
+    },
+
+
+    clickDelete(){
+      this.$confirm('是否确定删除该电影分享？', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.deleteMovieShare(this.movieData.id)
+      }).catch(() => {
+
+      });
+    },
   }
 }
 </script>
