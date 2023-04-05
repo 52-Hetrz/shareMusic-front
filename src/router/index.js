@@ -12,6 +12,11 @@ export default new Router({
       component: Entry
     },
     {
+      path: window.g.routePath.MOVIE_INFO,
+      name: 'MovieInfo',
+      component: ()=> import("@/components/commonComponents/movie/MovieInfo")
+    },
+    {
       path: '/main',
       name: 'Main',
       component: () => import("@/components/Main"),
