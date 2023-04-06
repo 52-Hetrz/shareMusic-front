@@ -77,3 +77,26 @@ export const toInfoPage = (pagePath, id, _this)=>{
   })
   window.open(route.href)
 }
+
+/**
+ * 将标签的列表使用特定的字符进行连接
+ * @param tags 需要连接的列表
+ * @param jointChar 连接使用的字符
+ * @returns {string} 如果入参为Array，返回连接之后的字符串，否则返回""
+ */
+export const jointTags = (tags, jointChar)=>{
+  if(Array.isArray(tags)){
+    let jointTags = ''
+    if(tags.length>0){
+      for(let tag of tags){
+        jointTags += jointChar+tag
+      }
+      jointTags = jointTags.substring(1)
+    }
+    return jointTags
+  }else{
+    return ""
+  }
+
+}
+

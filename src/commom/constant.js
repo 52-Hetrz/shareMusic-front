@@ -55,6 +55,14 @@ export const MOVIE_SOURCE_IMAGES = {
   MiGu:'MiGu.jpg'
 }
 
+export const SOURCE_LABEL_TO_NAME = {
+  "哔哩哔哩": "bilibili",
+  "优酷视频": "YOUKU",
+  "腾讯视频": "Tencent",
+  "爱奇艺": "QIY",
+  "咪咕视频":"MiGu"
+}
+
 export const MOVIE_SOURCE_STYLE = {
   bilibili:"width: 40px;height: 40px",
   YOUKU:"width: 40px;height: 40px",

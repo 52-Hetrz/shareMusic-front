@@ -122,7 +122,6 @@
                           :style="sourceImagesStyle[source.name]"
                         >
                         </el-image>
-
                       </el-col>
                       <el-col :span="12">
                         <div >{{source.label}}</div>
