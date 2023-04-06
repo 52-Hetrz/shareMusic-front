@@ -1,5 +1,5 @@
 <template>
-  <el-container style="height: 100%">
+  <el-container style="height: 100%;">
     <el-container style="height: 5.5%;padding: 0 0 0 0">
       <el-header style="height: 100%">
         <HeaderCom
@@ -10,7 +10,7 @@
 
 
     <el-container style="height: 89%">
-      <el-main style="height: 100%;background-color: rgba(238, 242, 240, 0.2)" >
+      <el-main style="height: 100%;background-color: rgba(238, 242, 240, 0.2);padding: 5px 5px 0 0" >
         <router-view/>
       </el-main>
       <AsideCom
@@ -20,7 +20,7 @@
       </AsideCom>
     </el-container>
 
-    <el-footer style="height: 5%;background-color: black">
+    <el-footer style="height: 6%;background-color: black">
       <FooterCom></FooterCom>
     </el-footer>
 
