@@ -56,7 +56,7 @@
 
           <el-col :span="12" :offset="0.5" style="height: 100%">
             <div style="height: 100%">
-              <h4 style="margin-top: 0">{{movieData.title}}</h4>
+              <h4 style="margin-top: 0">{{movieData.processedTitle}}</h4>
 
               <el-row style="text-align: left;margin-bottom: 1%;margin-top: -2%">
                 <el-col :span="8">
@@ -90,7 +90,7 @@
 
           <el-col :span="2" :offset="1" style="padding-top: 2%">
             <el-row style="margin-bottom: 15%;">
-              <el-button @click="" icon="el-icon-reading" type="primary" plain size="medium" round>
+              <el-button @click="toInfoPage" icon="el-icon-reading" type="primary" plain size="medium" round>
                 查看
               </el-button>
             </el-row>
@@ -113,16 +113,19 @@
 
 <script>
 import {MOVIE_STAR_TEXTS} from "../../../commom/constant";
+import {toInfoPage} from "../../../commom/utils";
 
 export default {
   name: "RectangleMovieShare",
   props:{
     movieData:Object,
-    images:Array
+    images:Array,
+    deleteMovieShare: Function
   },
   mounted() {
     this.cutContent()
     this.jointTags()
+    this.processTitle()
     setTimeout(() => {
       this.loading = false
     },1000)
@@ -153,8 +156,12 @@ export default {
       }
       this.movieData.jointTags = jointTags
     },
-
-
+    processTitle(){
+      this.movieData.processedTitle = this.movieData.title===null||this.movieData.title===""?"#无标题":this.movieData.title
+    },
+    toInfoPage(){
+      toInfoPage(window.g.routePath.MOVIE_INFO, this.movieData.id, this)
+    },
     clickDelete(){
       this.$confirm('是否确定删除该电影分享？', {
         confirmButtonText: '确定',
