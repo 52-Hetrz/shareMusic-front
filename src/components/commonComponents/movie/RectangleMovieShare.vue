@@ -55,7 +55,7 @@
           </el-col>
 
           <el-col :span="12" :offset="0.5" style="height: 100%">
-            <div style="height: 100%">
+            <div style="height: 100%;overflow: hidden">
               <h4 style="margin-top: 0">{{movieData.processedTitle}}</h4>
 
               <el-row style="text-align: left;margin-bottom: 1%;margin-top: -2%">
