@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-row>
+  <div style="height: 100%;width: 100%;font-weight: bold;font-size: 1rem">
+    <el-row >
       <el-col :span="14">
         <span>Share Music</span>
       </el-col>
@@ -14,8 +14,11 @@
 </template>
 
 <script>
+window.onresize = function (){
+  console.log("asdf")
+}
 export default {
-  name: "Title"
+  name: "Title",
 }
 </script>
 
