@@ -11,7 +11,7 @@
         </el-carousel-item>
       </el-carousel>
     </el-row>
-    <el-row style="background-color: rgba(58, 58, 58, 0.8);height: 1000px;min-height: 1000px;"
+    <el-row style=";height: 1000px;min-height: 1000px;"
             :style="unCardPart"
             :key=key
     >
@@ -39,25 +39,28 @@
           <el-row  style="margin-top: 10px">
             <span><span style="font-weight: bold">播放源：</span>{{movieInfo.jointSources}}</span>
 
-            <el-row v-for="item in this.movieInfo.source"
-                    :key="item">
-              <el-col :offset="6" :span="4">
-                <el-image
-                  :src="require('@/assets/movieSource/'+MOVIE_SOURCE_IMAGES[SOURCE_LABEL_TO_NAME[item]])"
-                  fit="contain"
-                  :style="MOVIE_SOURCE_STYLE[SOURCE_LABEL_TO_NAME[item]]"
-                >
-                </el-image>
-              </el-col>
-              <el-col :span="8" style="margin-top: 7px">
-                <div >{{item}}</div>
-              </el-col>
-            </el-row>
+<!--            <el-row v-for="item in this.movieInfo.source"-->
+<!--                    :key="item">-->
+<!--              <el-col :offset="6" :span="4">-->
+<!--                <el-image-->
+<!--                  :src="require('@/assets/movieSource/'+MOVIE_SOURCE_IMAGES[SOURCE_LABEL_TO_NAME[item]])"-->
+<!--                  fit="contain"-->
+<!--                  :style="MOVIE_SOURCE_STYLE[SOURCE_LABEL_TO_NAME[item]]"-->
+<!--                >-->
+<!--                </el-image>-->
+<!--              </el-col>-->
+<!--              <el-col :span="8" style="margin-top: 7px">-->
+<!--                <div >{{item}}</div>-->
+<!--              </el-col>-->
+<!--            </el-row>-->
           </el-row>
         </el-row>
       </el-col>
-      <el-col :offset="1" :span="18">
-        asdfasdf
+      <el-col :offset="4" :span="20" style="padding-left: 20px;background-color: rgba(58, 58, 58, 0.8)">
+        <h1 style="color: rgba(225, 225, 225, 0.89)">{{movieInfo.processedTitle}}</h1>
+        <div style="font-size: larger;text-align: left;white-space: pre-wrap;color: white">
+            {{movieInfo.content}}
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -67,10 +70,14 @@
 import {getInfo} from "../../../apis/movie/info";
 import {jointTags} from "../../../commom/utils";
 import {MOVIE_SOURCE_IMAGES, MOVIE_SOURCE_STYLE, SOURCE_LABEL_TO_NAME} from "../../../commom/constant";
+import movie from "../../subComponents/platform/Movie.vue";
 
 export default {
   name: "MovieInfo",
   computed: {
+    movie() {
+      return movie
+    },
     MOVIE_SOURCE_STYLE() {
       return MOVIE_SOURCE_STYLE
     },
