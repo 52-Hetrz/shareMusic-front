@@ -49,7 +49,7 @@ export const LIFE_SESSION_USER_NAME = "lifeUserName"
 
 export const MOVIE_SOURCE_IMAGES = {
   bilibili:"bilibili.svg",
-  YOUKU:'YOUKU.svg',
+  YouKu:'YOUKU.svg',
   Tencent:'Tencent2.svg',
   QIY:'QIY.png',
   MiGu:'MiGu.jpg'
@@ -57,7 +57,7 @@ export const MOVIE_SOURCE_IMAGES = {
 
 export const SOURCE_LABEL_TO_NAME = {
   "哔哩哔哩": "bilibili",
-  "优酷视频": "YOUKU",
+  "优酷视频": "YouKu",
   "腾讯视频": "Tencent",
   "爱奇艺": "QIY",
   "咪咕视频":"MiGu"
@@ -65,7 +65,7 @@ export const SOURCE_LABEL_TO_NAME = {
 
 export const MOVIE_SOURCE_STYLE = {
   bilibili:"width: 40px;height: 40px",
-  YOUKU:"width: 40px;height: 40px",
+  YouKu:"width: 40px;height: 40px",
   Tencent:"width: 50px;height: 60px;margin-top:-12px",
   QIY:"width: 50px;height: 50px;margin-top:-5px",
   MiGu:"width: 60px;height: 50px;margin-top:-8px;margin-left:-7px"
