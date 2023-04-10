@@ -1,24 +1,13 @@
 <template  xmlns="http://www.w3.org/1999/html">
-  <div style="padding: 10px 7px 0 0;margin: -7px -7px -7px -7px;  background-color: rgba(0, 0, 0, 0.9);height: 100%;overflow-y: auto">
-    <el-row id="pictureCard"
-      style="position: fixed; top: 0;left: 0;right: 0;z-index: 10;background-color: rgba(0, 0, 0)">
-      <el-carousel :interval="4000" type="card">
-        <el-carousel-item v-for="item in images" :key="item">
-          <el-image :src=item
-                    style="height: 100%;"
-          >
-          </el-image>
-        </el-carousel-item>
-      </el-carousel>
-    </el-row>
-    <el-row style=";height: 1000px;min-height: 1000px;"
-            :style="unCardPart"
-            :key=key
-    >
-      <el-col  :span="4" style='background-color: rgba(132, 123, 123, 0.13);position: fixed;color:rgba(244, 241, 241, 0.66); left: 0;height: 100%;
-      font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;border-radius: 10px'>
+  <div style="padding: 10px 7px 0 0;margin: -7px -7px -7px -7px;  background-color: rgba(36, 38, 38, 0.87);height: 100%;overflow-y: auto">
+    <el-row :key="key">
+      <el-col  id="leftInfo"
+               :span="4"
+               style='background-color: rgba(132, 123, 123, 0.13);position: fixed;color:rgba(244, 241, 241, 0.66); left: 0;top: 0;height: 100%;
+               font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;border-radius: 10px'
+      >
 
-          <h1>{{movieInfo.movieName}}</h1>
+        <h1>{{movieInfo.movieName}}</h1>
 
         <el-row style="text-align: left;padding-left: 12%; font-size: 15px">
           <el-row>
@@ -39,30 +28,111 @@
           <el-row  style="margin-top: 10px">
             <span><span style="font-weight: bold">播放源：</span>{{movieInfo.jointSources}}</span>
 
-<!--            <el-row v-for="item in this.movieInfo.source"-->
-<!--                    :key="item">-->
-<!--              <el-col :offset="6" :span="4">-->
-<!--                <el-image-->
-<!--                  :src="require('@/assets/movieSource/'+MOVIE_SOURCE_IMAGES[SOURCE_LABEL_TO_NAME[item]])"-->
-<!--                  fit="contain"-->
-<!--                  :style="MOVIE_SOURCE_STYLE[SOURCE_LABEL_TO_NAME[item]]"-->
-<!--                >-->
-<!--                </el-image>-->
-<!--              </el-col>-->
-<!--              <el-col :span="8" style="margin-top: 7px">-->
-<!--                <div >{{item}}</div>-->
-<!--              </el-col>-->
-<!--            </el-row>-->
+            <!--            <el-row v-for="item in this.movieInfo.source"-->
+            <!--                    :key="item">-->
+            <!--              <el-col :offset="6" :span="4">-->
+            <!--                <el-image-->
+            <!--                  :src="require('@/assets/movieSource/'+MOVIE_SOURCE_IMAGES[SOURCE_LABEL_TO_NAME[item]])"-->
+            <!--                  fit="contain"-->
+            <!--                  :style="MOVIE_SOURCE_STYLE[SOURCE_LABEL_TO_NAME[item]]"-->
+            <!--                >-->
+            <!--                </el-image>-->
+            <!--              </el-col>-->
+            <!--              <el-col :span="8" style="margin-top: 7px">-->
+            <!--                <div >{{item}}</div>-->
+            <!--              </el-col>-->
+            <!--            </el-row>-->
           </el-row>
         </el-row>
       </el-col>
-      <el-col :offset="4" :span="20" style="padding-left: 20px;background-color: rgba(58, 58, 58, 0.8)">
-        <h1 style="color: rgba(225, 225, 225, 0.89)">{{movieInfo.processedTitle}}</h1>
-        <div style="font-size: larger;text-align: left;white-space: pre-wrap;color: white">
-            {{movieInfo.content}}
-        </div>
+
+      <el-col :offset="4" :span="20">
+        <el-row id="pictureCard"
+                style="position: fixed; top: 0;right: 12px;z-index: 10;background-color: rgba(0, 0, 0)"
+                :style="leftInfoWidth"
+        >
+          <el-carousel :interval="4000" type="card">
+            <el-carousel-item v-for="item in images" :key="item">
+              <el-image :src=item
+                        style="height: 100%;"
+              >
+              </el-image>
+            </el-carousel-item>
+          </el-carousel>
+        </el-row>
+        <el-row style="padding-left: 20px;background-color: rgba(58, 58, 58, 0.8);width: 100%" :style="unCardPart">
+            <h1 style="color: rgba(225, 225, 225, 0.89)">{{movieInfo.processedTitle}}</h1>
+            <div style="font-size: larger;text-align: left;white-space: pre-wrap;color: white" >
+              {{movieInfo.content}}
+            </div>
+
+        </el-row>
       </el-col>
     </el-row>
+
+<!--    <el-row id="pictureCard"-->
+<!--      style="position: fixed; top: 0;left: 0;right: 0;z-index: 10;background-color: rgba(0, 0, 0)">-->
+<!--      <el-carousel :interval="4000" type="card">-->
+<!--        <el-carousel-item v-for="item in images" :key="item">-->
+<!--          <el-image :src=item-->
+<!--                    style="height: 100%;"-->
+<!--          >-->
+<!--          </el-image>-->
+<!--        </el-carousel-item>-->
+<!--      </el-carousel>-->
+<!--    </el-row>-->
+<!--    <el-row style=";height: 1000px;min-height: 1000px;"-->
+<!--            :style="unCardPart"-->
+<!--            :key=key-->
+<!--    >-->
+<!--      <el-col  :span="4" style='background-color: rgba(132, 123, 123, 0.13);position: fixed;color:rgba(244, 241, 241, 0.66); left: 0;height: 100%;-->
+<!--      font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;border-radius: 10px'>-->
+
+<!--          <h1>{{movieInfo.movieName}}</h1>-->
+
+<!--        <el-row style="text-align: left;padding-left: 12%; font-size: 15px">-->
+<!--          <el-row>-->
+<!--            <span><span style="font-weight: bold;">导演：</span>{{movieInfo.director}}</span>-->
+<!--          </el-row>-->
+<!--          <el-row  style="margin-top: 10px">-->
+<!--            <span><span style="font-weight: bold">主演：</span >{{movieInfo.leadActor}}</span>-->
+<!--          </el-row>-->
+<!--          <el-row  style="margin-top: 10px">-->
+<!--            <span><span style="font-weight: bold">类型：</span>{{movieInfo.jointTags}}</span>-->
+<!--          </el-row>-->
+<!--          <el-row  style="margin-top: 10px">-->
+<!--            <span><span style="font-weight: bold">上映时间：</span>{{movieInfo.releaseTime}}</span>-->
+<!--          </el-row>-->
+<!--          <el-row  style="margin-top: 10px">-->
+<!--            <span><span style="font-weight: bold">地区：</span>{{movieInfo.area}}</span>-->
+<!--          </el-row>-->
+<!--          <el-row  style="margin-top: 10px">-->
+<!--            <span><span style="font-weight: bold">播放源：</span>{{movieInfo.jointSources}}</span>-->
+
+<!--&lt;!&ndash;            <el-row v-for="item in this.movieInfo.source"&ndash;&gt;-->
+<!--&lt;!&ndash;                    :key="item">&ndash;&gt;-->
+<!--&lt;!&ndash;              <el-col :offset="6" :span="4">&ndash;&gt;-->
+<!--&lt;!&ndash;                <el-image&ndash;&gt;-->
+<!--&lt;!&ndash;                  :src="require('@/assets/movieSource/'+MOVIE_SOURCE_IMAGES[SOURCE_LABEL_TO_NAME[item]])"&ndash;&gt;-->
+<!--&lt;!&ndash;                  fit="contain"&ndash;&gt;-->
+<!--&lt;!&ndash;                  :style="MOVIE_SOURCE_STYLE[SOURCE_LABEL_TO_NAME[item]]"&ndash;&gt;-->
+<!--&lt;!&ndash;                >&ndash;&gt;-->
+<!--&lt;!&ndash;                </el-image>&ndash;&gt;-->
+<!--&lt;!&ndash;              </el-col>&ndash;&gt;-->
+<!--&lt;!&ndash;              <el-col :span="8" style="margin-top: 7px">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div >{{item}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;              </el-col>&ndash;&gt;-->
+<!--&lt;!&ndash;            </el-row>&ndash;&gt;-->
+<!--          </el-row>-->
+<!--        </el-row>-->
+<!--      </el-col>-->
+<!--      <el-col :offset="4" :span="20" style="padding-left: 20px;background-color: rgba(58, 58, 58, 0.8)">-->
+<!--        <h1 style="color: rgba(225, 225, 225, 0.89)">{{movieInfo.processedTitle}}</h1>-->
+<!--        <div style="font-size: larger;text-align: left;white-space: pre-wrap;color: white">-->
+<!--            {{movieInfo.content}}-->
+<!--        </div>-->
+<!--      </el-col>-->
+<!--    </el-row>-->
   </div>
 </template>
 
@@ -91,6 +161,7 @@ export default {
   async mounted() {
     this.id = this.$route.query.id
     this.unCardPart.marginTop =  document.getElementById("pictureCard").clientHeight+20+"px"
+    this.leftInfoWidth.left = document.getElementById("leftInfo").clientWidth+1+"px"
     await this.getMovieInfo()
     if(this.isSuccess){
       this.movieInfo.jointTags = jointTags(this.movieInfo.tags,"、")
@@ -108,6 +179,9 @@ export default {
       images:[],
       cartHeight: {
         height:screen.height/5+"px"
+      },
+      leftInfoWidth: {
+        left:"",
       },
       unCardPart:{
         marginTop: "",
